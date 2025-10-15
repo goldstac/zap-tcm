@@ -1,0 +1,88 @@
+#!/usr/bin/env node
+
+import {
+  addTask,
+  branch,
+  completeTask,
+  deleteBranch,
+  deleteTask,
+  incompleteTask,
+  init,
+  listTasks,
+  switchBranch,
+  updateTask,
+} from './todo.js';
+
+const args = process.argv.slice(2);
+
+const cmd = process.argv.slice(2)[0].startsWith('--')
+  ? undefined
+  : process.argv.slice(2)[0];
+
+const helpText = `
+Usage: zap [command] [options]
+
+Commands:
+  init                          Initialize a new zap repository
+  branch [name]                 Create a branch (or list branches if no name is given)
+  branch -d | --delete [name]   Delete a branch
+  switch [name]                 Switch to a branch
+  add [task]                    Add a new task to the current branch
+  list                          List all tasks in the current branch
+  update [id] [task]            Update a task
+  remove [id]                   Remove a task
+  complete [id]                 Mark a task as complete
+  incomplete [id]               Mark a task as incomplete
+  -h, --help                    Show this help message
+
+`;
+
+switch (cmd) {
+  case 'init':
+    await init();
+    break;
+
+  case 'branch':
+    if (args[1] === '-d' || args[1] === '--delete') {
+      await deleteBranch(args[2]);
+    } else {
+      await branch(args[1]);
+    }
+    break;
+
+  case 'switch':
+    await switchBranch(args[1]);
+    break;
+
+  case 'add':
+    await addTask(args.slice(1).join(' '));
+    break;
+
+  case 'list':
+    await listTasks();
+    break;
+
+  case 'update':
+    await updateTask(parseInt(args[1], 10), args.slice(2).join(' '));
+    break;
+
+  case 'remove':
+    await deleteTask(parseInt(args[1], 10));
+    break;
+
+  case 'complete':
+    await completeTask(parseInt(args[1], 10));
+    break;
+
+  case 'incomplete':
+    await incompleteTask(parseInt(args[1], 10));
+    break;
+
+  case '--help':
+  case '-h':
+    console.log(helpText);
+    break;
+
+  default:
+    console.log(helpText);
+}

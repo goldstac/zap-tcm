@@ -1,0 +1,24 @@
+{
+  "name": "zap",
+  "version": "1.0.0",
+  "description": "If you want to know what zap is, just think of git but for your todos",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "zap": "index.js"
+  },
+  "scripts": {
+    "start": "node .",
+    "dev": "node --watch ."
+  },
+  "keywords": [
+    "todo",
+    "cli",
+    "task",
+    "zap",
+    "todo-cli",
+    "todo-manager"
+  ],
+  "author": "Caleb Ephrem",
+  "license": "MIT"
+}
