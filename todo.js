@@ -8,7 +8,7 @@ import {
   readFile,
   rmfile,
   writeFile,
-} from './utils/utils.js';
+} from './utils.js';
 
 export async function init() {
   if (!fs.existsSync(data.basedir)) {

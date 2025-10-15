@@ -1,11 +1,19 @@
 {
-  "name": "zap",
+  "name": "zap-tcm",
   "version": "1.0.0",
-  "description": "If you want to know what zap is, just think of git but for your todos",
+  "description": "✅ If you want to know what zap is, just think of git but for your todos",
   "main": "index.js",
   "type": "module",
   "bin": {
     "zap": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calebephrem/zap-tcm"
+  },
+  "bugs": {
+    "url": "https://github.com/calebephrem/zap-tcm/issues",
+    "email": "quantumpandaprog@gmail.com"
   },
   "scripts": {
     "start": "node .",
@@ -16,6 +24,7 @@
     "cli",
     "task",
     "zap",
+    "zap-tcm",
     "todo-cli",
     "todo-manager"
   ],
