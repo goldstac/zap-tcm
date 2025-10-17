@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import data from './data.js';
@@ -33,8 +34,46 @@ export async function branch(name, log = true) {
     padLog(branches.join('\n'));
     return;
   }
-  await writeFile(path.join(data.basedir, `${name}.json`), '[]');
+
+  const obj = { id: randomUUID(), name, todos: [] };
+  await writeFile(
+    path.join(data.basedir, `${name}.json`),
+    JSON.stringify(obj, null, 2)
+  );
   log ? console.log('Created branch:', name) : null;
+}
+
+async function getBranchObject() {
+  const br = await currentBranch();
+  const file = path.join(data.basedir, `${br}.json`);
+  try {
+    const content = await readFile(file);
+    const parsed = JSON.parse(content || '[]');
+
+    if (Array.isArray(parsed)) {
+      const obj = { id: randomUUID(), name: br, todos: parsed };
+      await writeFile(file, JSON.stringify(obj, null, 2));
+      return obj;
+    }
+    if (parsed && typeof parsed === 'object') {
+      parsed.todos = parsed.todos || [];
+      parsed.name = parsed.name || br;
+      parsed.id = parsed.id || randomUUID();
+      return parsed;
+    }
+    const obj = { id: randomUUID(), name: br, todos: [] };
+    await writeFile(file, JSON.stringify(obj, null, 2));
+    return obj;
+  } catch (err) {
+    const obj = { id: randomUUID(), name: br, todos: [] };
+    await writeFile(file, JSON.stringify(obj, null, 2));
+    return obj;
+  }
+}
+
+async function writeBranchObject(branchObj) {
+  const file = path.join(data.basedir, `${branchObj.name}.json`);
+  await writeFile(file, JSON.stringify(branchObj, null, 2));
 }
 
 export async function deleteBranch(name) {
@@ -74,22 +113,19 @@ export async function addTask(task) {
     console.error('Please provide a task.');
     process.exit(1);
   }
-  const br = await currentBranch();
-  const todos = await getTodos();
+  const branchObj = await getBranchObject();
+  const todos = branchObj.todos;
   const id = todos.length ? todos[todos.length - 1].id + 1 : 1;
   const createdAt = new Date().toISOString();
-  todos.push({ id, task, done: false, createdAt });
-  await writeFile(
-    path.join(data.basedir, `${br}.json`),
-    JSON.stringify(todos, null, 2)
-  );
+  todos.push({ id, task, completed: false, createdAt });
+  branchObj.todos = todos;
+  await writeBranchObject(branchObj);
   console.log(`Added todo: ${task}`);
 }
 
 export async function getTodos() {
-  const br = await currentBranch();
-  const todos = await readFile(path.join(data.basedir, `${br}.json`));
-  return JSON.parse(todos || '[]');
+  const branchObj = await getBranchObject();
+  return branchObj.todos || [];
 }
 
 export async function listTasks() {
@@ -99,57 +135,55 @@ export async function listTasks() {
     return;
   }
   todos.forEach((todo) => {
-    console.log(`${todo.id}. [${todo.done ? 'x' : ' '}] ${todo.task}`);
+    console.log(`${todo.id}. [${todo.completed ? 'x' : ' '}] ${todo.task}`);
   });
 }
 
 export async function completeTask(id) {
-  const todos = await getTodos();
+  const branchObj = await getBranchObject();
+  const todos = branchObj.todos;
   const index = todos.findIndex((todo) => todo.id === id);
   if (index === -1) {
     console.error(`Task with id ${id} not found.`);
     process.exit(1);
   }
-  todos[index].done = true;
-  await writeFile(
-    path.join(data.basedir, `${await currentBranch()}.json`),
-    JSON.stringify(todos, null, 2)
-  );
+  todos[index].completed = true;
+  branchObj.todos = todos;
+  await writeBranchObject(branchObj);
   console.log(`Completed task: ${todos[index].task}`);
 }
 
 export async function incompleteTask(id) {
-  const todos = await getTodos();
+  const branchObj = await getBranchObject();
+  const todos = branchObj.todos;
   const index = todos.findIndex((todo) => todo.id === id);
   if (index === -1) {
     console.error(`Task with id ${id} not found.`);
     process.exit(1);
   }
-  todos[index].done = false;
-  await writeFile(
-    path.join(data.basedir, `${await currentBranch()}.json`),
-    JSON.stringify(todos, null, 2)
-  );
+  todos[index].completed = false;
+  branchObj.todos = todos;
+  await writeBranchObject(branchObj);
   console.log(`Marked task as incomplete: ${todos[index].task}`);
 }
 
 export async function deleteTask(id) {
-  const todos = await getTodos();
+  const branchObj = await getBranchObject();
+  const todos = branchObj.todos;
   const index = todos.findIndex((todo) => todo.id === id);
   if (index === -1) {
     console.error(`Task with id ${id} not found.`);
     process.exit(1);
   }
   const [deleted] = todos.splice(index, 1);
-  await writeFile(
-    path.join(data.basedir, `${await currentBranch()}.json`),
-    JSON.stringify(todos, null, 2)
-  );
+  branchObj.todos = todos;
+  await writeBranchObject(branchObj);
   console.log(`Deleted task: ${deleted.task}`);
 }
 
 export async function updateTask(id, task) {
-  const todos = await getTodos();
+  const branchObj = await getBranchObject();
+  const todos = branchObj.todos;
   const index = todos.findIndex((todo) => todo.id === id);
 
   if (index === -1) {
@@ -164,10 +198,7 @@ export async function updateTask(id, task) {
 
   const updated = { ...todos[index], task };
   todos[index] = updated;
-
-  await writeFile(
-    path.join(data.basedir, `${await currentBranch()}.json`),
-    JSON.stringify(todos, null, 2)
-  );
+  branchObj.todos = todos;
+  await writeBranchObject(branchObj);
   console.log(`Updated task: ${updated.task}`);
 }
