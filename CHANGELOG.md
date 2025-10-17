@@ -11,6 +11,7 @@
 - Add `import`/`export` functionality to import or export branches as `.json`
 - Add `move` functionality to move todos between branches
 - Add `merge` functionality to merge two branches
+- Add `version` option to show the current version of zap
 
 ### 🛠️ Fixes
 

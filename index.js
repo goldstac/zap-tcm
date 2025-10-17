@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import data from './data.js';
 import {
   addTask,
   branch,
@@ -104,6 +105,11 @@ switch (cmd) {
   case '--help':
   case '-h':
     console.log(helpText);
+    break;
+
+  case '--version':
+  case '-v':
+    console.log(`zap version ${data.version}`);
     break;
 
   default:
