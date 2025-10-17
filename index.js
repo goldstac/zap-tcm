@@ -6,6 +6,7 @@ import {
   completeTask,
   deleteBranch,
   deleteTask,
+  importExportBranch,
   incompleteTask,
   init,
   listTasks,
@@ -33,6 +34,8 @@ Commands:
   remove [id]                   Remove a task
   complete [id]                 Mark a task as complete
   incomplete [id]               Mark a task as incomplete
+  import [branch] [file]        Import tasks from a file into a branch
+  export [branch] [file]        Export tasks from a branch to a file
   -h, --help                    Show this help message
 
 `;
@@ -76,6 +79,14 @@ switch (cmd) {
 
   case 'incomplete':
     await incompleteTask(parseInt(args[1], 10));
+    break;
+
+  case 'import':
+    await importExportBranch(args[1], 'import', args[2]);
+    break;
+
+  case 'export':
+    await importExportBranch(args[1], 'export', args[2]);
     break;
 
   case '--help':

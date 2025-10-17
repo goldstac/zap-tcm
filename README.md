@@ -94,13 +94,13 @@ Zap stores its data locally in a `.zap/` folder inside your project.
 
 ## 🌟 _(coming soon)_
 
+- [x] `zap import` / `zap export` — integrate with JSON, CSV, or Markdown
 - [ ] `zap merge` — merge two branches (todo lists)
 - [ ] `zap tag` — tag todo milestones
 - [ ] `zap move` — move todos between branches
 - [ ] `zap undo` — revert last action
 - [ ] `zap search` — quickly find todos across branches
 - [ ] `zap ui` — interactive TUI dashboard for managing tasks visually
-- [ ] `zap import` / `zap export` — integrate with JSON, CSV, or Markdown
 - [ ] `zap stats` — show productivity analytics & completed tasks count
 - [ ] `zap config` — global and local configuration management
 

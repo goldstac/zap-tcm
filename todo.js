@@ -91,6 +91,28 @@ export async function deleteBranch(name) {
   console.log(`Deleted branch: ${name}`);
 }
 
+export async function importExportBranch(name, direction, filepath) {
+  if (!name || !direction || !filepath) {
+    console.error(
+      'Please provide branch name, direction (import/export), and file path.'
+    );
+    process.exit(1);
+  }
+  const file = path.join(data.basedir, `${name}.json`);
+  if (direction === 'export') {
+    const branchObj = await getBranchObject();
+    await writeFile(filepath, JSON.stringify(branchObj, null, 2));
+    console.log(`Exported branch ${name} to ${filepath}`);
+  } else if (direction === 'import') {
+    const content = await readFile(filepath);
+    await writeFile(file, content);
+    console.log(`Imported branch ${name} from ${filepath}`);
+  } else {
+    console.error('Direction must be either "import" or "export".');
+    process.exit(1);
+  }
+}
+
 export async function switchBranch(br) {
   const branches = await readdir(data.basedir);
   const exists = branches.includes(`${br}.json`);
