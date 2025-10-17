@@ -10,8 +10,9 @@ import {
   incompleteTask,
   init,
   listTasks,
+  moveTask,
   switchBranch,
-  updateTask,
+  updateTask
 } from './todo.js';
 
 const args = process.argv.slice(2);
@@ -34,6 +35,7 @@ Commands:
   remove [id]                   Remove a task
   complete [id]                 Mark a task as complete
   incomplete [id]               Mark a task as incomplete
+  move [id] [branch]            Move a task to another branch
   import [branch] [file]        Import tasks from a file into a branch
   export [branch] [file]        Export tasks from a branch to a file
   -h, --help                    Show this help message
@@ -75,6 +77,10 @@ switch (cmd) {
 
   case 'complete':
     await completeTask(parseInt(args[1], 10));
+    break;
+
+  case 'move':
+    await moveTask(parseInt(args[1], 10), args[2]);
     break;
 
   case 'incomplete':

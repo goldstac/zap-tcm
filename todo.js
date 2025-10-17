@@ -91,6 +91,33 @@ export async function deleteBranch(name) {
   console.log(`Deleted branch: ${name}`);
 }
 
+export async function moveTask(id, targetBranch) {
+  const sourceBranch = await currentBranch();
+  if (sourceBranch === targetBranch) {
+    console.error('Source and target branches are the same.');
+    process.exit(1);
+  }
+  const sourceObj = await getBranchObject();
+  const todoIndex = sourceObj.todos.findIndex((todo) => todo.id === id);
+  if (todoIndex === -1) {
+    console.error(`Task with id ${id} not found in branch ${sourceBranch}.`);
+    process.exit(1);
+  }
+  const [todo] = sourceObj.todos.splice(todoIndex, 1);
+  await writeBranchObject(sourceObj);
+  const targetFile = path.join(data.basedir, `${targetBranch}.json`);
+  let targetObj;
+  try {
+    const content = await readFile(targetFile);
+    targetObj = JSON.parse(content);
+  } catch (err) {
+    targetObj = { id: randomUUID(), name: targetBranch, todos: [] };
+  }
+  targetObj.todos.push(todo);
+  await writeBranchObject(targetObj);
+  console.log(`Moved task id ${id} from ${sourceBranch} to ${targetBranch}.`);
+}
+
 export async function importExportBranch(name, direction, filepath) {
   if (!name || !direction || !filepath) {
     console.error(
