@@ -1,6 +1,6 @@
-import { randomUUID } from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import ucid from 'unique-custom-id';
 import data from './data.js';
 import {
   createFolder,
@@ -35,7 +35,7 @@ export async function branch(name, log = true) {
     return;
   }
 
-  const obj = { id: randomUUID(), name, todos: [] };
+  const obj = { id: ucid.format('short-uuid'), name, todos: [] };
   await writeFile(
     path.join(data.basedir, `${name}.json`),
     JSON.stringify(obj, null, 2)
@@ -51,21 +51,21 @@ async function getBranchObject() {
     const parsed = JSON.parse(content || '[]');
 
     if (Array.isArray(parsed)) {
-      const obj = { id: randomUUID(), name: br, todos: parsed };
+      const obj = { id: ucid.format('short-uuid'), name: br, todos: parsed };
       await writeFile(file, JSON.stringify(obj, null, 2));
       return obj;
     }
     if (parsed && typeof parsed === 'object') {
       parsed.todos = parsed.todos || [];
       parsed.name = parsed.name || br;
-      parsed.id = parsed.id || randomUUID();
+      parsed.id = parsed.id || ucid.format('short-uuid');
       return parsed;
     }
-    const obj = { id: randomUUID(), name: br, todos: [] };
+    const obj = { id: ucid.format('short-uuid'), name: br, todos: [] };
     await writeFile(file, JSON.stringify(obj, null, 2));
     return obj;
   } catch (err) {
-    const obj = { id: randomUUID(), name: br, todos: [] };
+    const obj = { id: ucid.format('short-uuid'), name: br, todos: [] };
     await writeFile(file, JSON.stringify(obj, null, 2));
     return obj;
   }
@@ -111,11 +111,51 @@ export async function moveTask(id, targetBranch) {
     const content = await readFile(targetFile);
     targetObj = JSON.parse(content);
   } catch (err) {
-    targetObj = { id: randomUUID(), name: targetBranch, todos: [] };
+    targetObj = {
+      id: ucid.format('short-uuid'),
+      name: targetBranch,
+      todos: [],
+    };
   }
   targetObj.todos.push(todo);
   await writeBranchObject(targetObj);
   console.log(`Moved task id ${id} from ${sourceBranch} to ${targetBranch}.`);
+}
+
+export async function mergeBranches(sourceBranch, targetBranch) {
+  if (!targetBranch) {
+    targetBranch = await currentBranch();
+  }
+  if (!sourceBranch) {
+    console.error('Please provide a source branch to merge from.');
+  }
+  if (sourceBranch === targetBranch) {
+    console.error("Source and target branches can't be the same.");
+    process.exit(1);
+  }
+  const sourceFile = path.join(data.basedir, `${sourceBranch}.json`);
+  const targetFile = path.join(data.basedir, `${targetBranch}.json`);
+  let sourceObj, targetObj;
+  try {
+    const sourceContent = await readFile(sourceFile);
+    sourceObj = JSON.parse(sourceContent);
+  } catch (err) {
+    console.error(`Source branch ${sourceBranch} does not exist.`);
+    process.exit(1);
+  }
+  try {
+    const targetContent = await readFile(targetFile);
+    targetObj = JSON.parse(targetContent);
+  } catch (err) {
+    targetObj = {
+      id: ucid.format('short-uuid'),
+      name: targetBranch,
+      todos: [],
+    };
+  }
+  targetObj.todos = targetObj.todos.concat(sourceObj.todos);
+  await writeBranchObject(targetObj);
+  console.log(`Merged branch ${sourceBranch} into ${targetBranch}.`);
 }
 
 export async function importExportBranch(name, direction, filepath) {

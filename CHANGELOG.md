@@ -10,6 +10,7 @@
   - todos
 - Add `import`/`export` functionality to import or export branches as `.json`
 - Add `move` functionality to move todos between branches
+- Add `merge` functionality to merge two branches
 
 ### 🛠️ Fixes
 
