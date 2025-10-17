@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import data from './data.js';
 import {
   addTask,
   branch,
   completeTask,
+  data,
   deleteBranch,
   deleteTask,
   importExportBranch,
@@ -15,7 +15,7 @@ import {
   moveTask,
   switchBranch,
   updateTask,
-} from './todo.js';
+} from './zap.js';
 
 const args = process.argv.slice(2);
 

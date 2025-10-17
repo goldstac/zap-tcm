@@ -111,7 +111,7 @@ Zap stores its data locally in a `.zap/` folder inside your project.
 ## 🧑‍💻 Contributing
 
 Contributions are welcome!  
-Fork the repo, make your changes, and submit a pull request.
+Fork the repo, make your changes, and submit a pull request. Make sure to read [CONTRIBUTING](./CONTRIBUTING.md) before you start.
 
 ## 📄 License
 
