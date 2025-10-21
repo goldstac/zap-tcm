@@ -16,12 +16,14 @@ export async function branch(name, log = true) {
     return;
   }
 
-  const obj = { id: ucid.format('short-uuid'), name, todos: [] };
+  const id = ucid.format('short-uuid');
+
+  const obj = { id: id, name, todos: [] };
   await writeFile(
     path.join(data.basedir, `${name}.json`),
     JSON.stringify(obj, null, 2)
   );
-  log ? console.log('Created branch:', name) : null;
+  log ? console.log(`Created branch: ${name} [${id}]`) : null;
 }
 
 export async function getBranchObject() {
@@ -68,8 +70,10 @@ export async function deleteBranch(name) {
     console.error(`Branch ${name} does not exist.`);
     process.exit(1);
   }
+  const raw = await readFile(path.join(data.basedir, `${name}.json`));
+  const id = JSON.parse(raw).id;
   await rmfile(path.join(data.basedir, `${name}.json`));
-  console.log(`Deleted branch: ${name}`);
+  console.log(`Deleted branch ${name} [${id}]`);
 }
 
 export async function mergeBranches(sourceBranch, targetBranch) {

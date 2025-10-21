@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { removeTag, tag } from './core/tag.js';
 import {
   addTask,
   branch,
@@ -38,6 +39,7 @@ Commands:
   complete [id]                 Mark a task as complete
   incomplete [id]               Mark a task as incomplete
   merge [source] [target]       Merge source branch into target branch
+  tag [id] [tag]                Add a tag to a task (replace id with `-d` to remove a tag)
   move [id] [branch]            Move a task to another branch
   import [branch] [file]        Import tasks from a file into a branch
   export [branch] [file]        Export tasks from a branch to a file
@@ -92,6 +94,14 @@ switch (cmd) {
 
   case 'merge':
     await mergeBranches(args[1], args[2]);
+    break;
+
+  case 'tag':
+    if (args[1] == '-d') {
+      await removeTag(args[2]);
+    } else {
+      await tag(args[1], args[2]);
+    }
     break;
 
   case 'import':

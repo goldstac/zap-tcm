@@ -80,7 +80,11 @@ export async function listTasks() {
     return;
   }
   todos.forEach((todo) => {
-    console.log(`${todo.id}. [${todo.completed ? 'x' : ' '}] ${todo.task}`);
+    console.log(
+      `${todo.id}. [${todo.completed ? 'x' : ' '}] ${todo.task}${
+        todo.tag ? ` (${todo.tag})` : ``
+      }`
+    );
   });
 }
 
@@ -129,7 +133,7 @@ export async function deleteTask(id) {
 export async function updateTask(id, task) {
   const branchObj = await getBranchObject();
   const todos = branchObj.todos;
-  const index = todos.findIndex((todo) => todo.id === id);
+  const index = todos.findIndex((todo) => todo.id == id);
 
   if (index === -1) {
     console.error(`Task with id ${id} not found.`);
@@ -146,4 +150,25 @@ export async function updateTask(id, task) {
   branchObj.todos = todos;
   await writeBranchObject(branchObj);
   console.log(`Updated task: ${updated.task}`);
+}
+
+export async function updateTodo(id, todo, log = true) {
+  const branchObj = await getBranchObject();
+  const todos = branchObj.todos;
+  const index = todos.findIndex((todo) => todo.id == id);
+
+  if (index === -1) {
+    console.error(`Todo with id ${id} not found.`);
+    process.exit(1);
+  }
+
+  if (!todo) {
+    console.error('Please provide a new todo.');
+    process.exit(1);
+  }
+
+  todos[index] = todo;
+  branchObj.todos = todos;
+  await writeBranchObject(branchObj);
+  log ? console.log(`Updated todo: ${id}`) : null;
 }
