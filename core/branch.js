@@ -23,7 +23,7 @@ export async function branch(name, log = true) {
     path.join(data.basedir, `${name}.json`),
     JSON.stringify(obj, null, 2)
   );
-  log ? console.log(`Created branch: ${name} [${id}]`) : null;
+  log ? console.log(`Created branch: ${name} [${id.split(5)[0]}]`) : null;
 }
 
 export async function getBranchObject() {
@@ -73,7 +73,7 @@ export async function deleteBranch(name) {
   const raw = await readFile(path.join(data.basedir, `${name}.json`));
   const id = JSON.parse(raw).id;
   await rmfile(path.join(data.basedir, `${name}.json`));
-  console.log(`Deleted branch ${name} [${id}]`);
+  console.log(`Deleted branch ${name} [${id.split(5)[0]}]`);
 }
 
 export async function mergeBranches(sourceBranch, targetBranch) {

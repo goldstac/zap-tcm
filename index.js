@@ -30,7 +30,7 @@ const cmd = process.argv.slice(2)[0].startsWith('--')
   : process.argv.slice(2)[0];
 
 const helpText = `
-Usage: zap [command] [options]
+Usage: zap [command]
 
 Commands:
   init                          Initialize a new zap repository
@@ -49,8 +49,9 @@ Commands:
   move [id] [branch]            Move a task to another branch
   import [branch] [file]        Import tasks from a file into a branch
   export [branch] [file]        Export tasks from a branch to a file
+  stats                         Show statistics for the current branch (use stats -g for global stats)
+  -v, --version                 Show version information
   -h, --help                    Show this help message
-
 `;
 
 switch (cmd) {

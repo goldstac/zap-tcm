@@ -1,5 +1,11 @@
 # Change Log
 
+## `v3.0.1`
+
+### 🛠️ Fixes
+
+- Log partial sha (first 7 chars) instead of full
+
 ## `v3.0.0`
 
 ### 🚀 Enhancements
