@@ -6,6 +6,7 @@
 
 - Add `tag` functionality to tag todo milestones
 - Add `search` functionality to quickly find todos across branches
+- Add `stats` functionality to show productivity rate & completed tasks count
 
 ## `v2.0.0`
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { globalStats, stats } from './core/stats.js';
 import {
   addTask,
   branch,
@@ -14,10 +15,11 @@ import {
   mergeBranches,
   moveTask,
   removeTag,
-  searchTodos, searchTodosGlobally,
+  searchTodos,
+  searchTodosGlobally,
   switchBranch,
   tag,
-  updateTask
+  updateTask,
 } from './impexp.js';
 
 const args = process.argv.slice(2);
@@ -26,8 +28,7 @@ const cmd = process.argv.slice(2)[0].startsWith('--')
   ? undefined
   : process.argv.slice(2)[0];
 
-const helpText =
-  `
+const helpText = `
 Usage: zap [command] [options]
 
 Commands:
@@ -122,6 +123,14 @@ switch (cmd) {
 
   case 'export':
     await importExportBranch(args[1], 'export', args[2]);
+    break;
+
+  case 'stats':
+    if (args[1] == '--global' || args[1] == '-g') {
+      await globalStats();
+    } else {
+      await stats();
+    }
     break;
 
   case '--help':

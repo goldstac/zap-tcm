@@ -29,8 +29,6 @@ export async function searchTodos(keyword) {
   });
 }
 
-// function to search todos across all branches, there is no need of branchFile because we are searching the entire .zap repository for branches
-
 export async function searchTodosGlobally(keyword) {
   if (!keyword) {
     console.error('Please provide a keyword to search for.');
