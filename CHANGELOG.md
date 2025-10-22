@@ -1,5 +1,12 @@
 # Change Log
 
+## `v3.0.0`
+
+### 🚀 Enhancements
+
+- Add `tag` functionality to tag todo milestones
+- Add `search` functionality to quickly find todos across branches
+
 ## `v2.0.0`
 
 ### 🚀 Enhancements

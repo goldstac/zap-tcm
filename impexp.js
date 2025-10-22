@@ -9,6 +9,8 @@ import {
   writeBranchObject,
 } from './core/branch.js';
 import { data } from './core/data.js';
+import { searchTodos, searchTodosGlobally } from './core/search.js';
+import { removeTag, tag } from './core/tag.js';
 import {
   addTask,
   completeTask,
@@ -19,6 +21,7 @@ import {
   listTasks,
   moveTask,
   updateTask,
+  updateTodo,
 } from './core/task.js';
 
 export {
@@ -36,9 +39,10 @@ export {
   init,
   listTasks,
   mergeBranches,
-  moveTask,
-  switchBranch,
-  updateTask,
+  moveTask, removeTag, searchTodos,
+  searchTodosGlobally,
+  switchBranch, tag, updateTask,
+  updateTodo,
   writeBranchObject
 };
 

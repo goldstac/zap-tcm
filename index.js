@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { removeTag, tag } from './core/tag.js';
 import {
   addTask,
   branch,
@@ -14,9 +13,12 @@ import {
   listTasks,
   mergeBranches,
   moveTask,
+  removeTag,
+  searchTodos, searchTodosGlobally,
   switchBranch,
-  updateTask,
-} from './zap.js';
+  tag,
+  updateTask
+} from './impexp.js';
 
 const args = process.argv.slice(2);
 
@@ -24,7 +26,8 @@ const cmd = process.argv.slice(2)[0].startsWith('--')
   ? undefined
   : process.argv.slice(2)[0];
 
-const helpText = `
+const helpText =
+  `
 Usage: zap [command] [options]
 
 Commands:
@@ -38,8 +41,9 @@ Commands:
   remove [id]                   Remove a task
   complete [id]                 Mark a task as complete
   incomplete [id]               Mark a task as incomplete
+  search [keyword]              Search tasks in the current branch (use search -g [keyword] to search globally)
   merge [source] [target]       Merge source branch into target branch
-  tag [id] [tag]                Add a tag to a task (replace id with `-d` to remove a tag)
+  tag [id] [tag]                Add a tag to a task (replace id with -d to remove a tag)
   move [id] [branch]            Move a task to another branch
   import [branch] [file]        Import tasks from a file into a branch
   export [branch] [file]        Export tasks from a branch to a file
@@ -90,6 +94,14 @@ switch (cmd) {
 
   case 'incomplete':
     await incompleteTask(parseInt(args[1], 10));
+    break;
+
+  case 'search':
+    if (args[1] === '--global' || args[1] === '-g') {
+      await searchTodosGlobally(args.slice(2).join(' '));
+    } else {
+      await searchTodos(args.slice(1).join(' '));
+    }
     break;
 
   case 'merge':
