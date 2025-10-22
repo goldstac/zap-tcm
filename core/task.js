@@ -43,7 +43,7 @@ export async function moveTask(id, targetBranch) {
     targetObj = JSON.parse(content);
   } catch (err) {
     targetObj = {
-      id: ucid.format('short-uuid'),
+      id: ucid.format('sha'),
       name: targetBranch,
       todos: [],
     };

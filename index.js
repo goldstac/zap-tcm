@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { globalStats, stats } from './core/stats.js';
 import {
   addTask,
   branch,
@@ -8,6 +7,7 @@ import {
   data,
   deleteBranch,
   deleteTask,
+  globalStats,
   importExportBranch,
   incompleteTask,
   init,
@@ -17,6 +17,7 @@ import {
   removeTag,
   searchTodos,
   searchTodosGlobally,
+  stats,
   switchBranch,
   tag,
   updateTask,

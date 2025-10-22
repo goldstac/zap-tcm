@@ -8,6 +8,10 @@
 - Add `search` functionality to quickly find todos across branches
 - Add `stats` functionality to show productivity rate & completed tasks count
 
+### 🛠️ Fixes
+
+- Change id format to `sha`
+
 ## `v2.0.0`
 
 ### 🚀 Enhancements

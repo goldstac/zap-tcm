@@ -16,7 +16,7 @@ export async function branch(name, log = true) {
     return;
   }
 
-  const id = ucid.format('short-uuid');
+  const id = ucid.format('sha');
 
   const obj = { id: id, name, todos: [] };
   await writeFile(
@@ -34,21 +34,21 @@ export async function getBranchObject() {
     const parsed = JSON.parse(content || '[]');
 
     if (Array.isArray(parsed)) {
-      const obj = { id: ucid.format('short-uuid'), name: br, todos: parsed };
+      const obj = { id: ucid.format('sha'), name: br, todos: parsed };
       await writeFile(file, JSON.stringify(obj, null, 2));
       return obj;
     }
     if (parsed && typeof parsed === 'object') {
       parsed.todos = parsed.todos || [];
       parsed.name = parsed.name || br;
-      parsed.id = parsed.id || ucid.format('short-uuid');
+      parsed.id = parsed.id || ucid.format('sha');
       return parsed;
     }
-    const obj = { id: ucid.format('short-uuid'), name: br, todos: [] };
+    const obj = { id: ucid.format('sha'), name: br, todos: [] };
     await writeFile(file, JSON.stringify(obj, null, 2));
     return obj;
   } catch (err) {
-    const obj = { id: ucid.format('short-uuid'), name: br, todos: [] };
+    const obj = { id: ucid.format('sha'), name: br, todos: [] };
     await writeFile(file, JSON.stringify(obj, null, 2));
     return obj;
   }
@@ -102,7 +102,7 @@ export async function mergeBranches(sourceBranch, targetBranch) {
     targetObj = JSON.parse(targetContent);
   } catch (err) {
     targetObj = {
-      id: ucid.format('short-uuid'),
+      id: ucid.format('sha'),
       name: targetBranch,
       todos: [],
     };

@@ -10,6 +10,7 @@ import {
 } from './core/branch.js';
 import { data } from './core/data.js';
 import { searchTodos, searchTodosGlobally } from './core/search.js';
+import { globalStats, stats } from './core/stats.js';
 import { removeTag, tag } from './core/tag.js';
 import {
   addTask,
@@ -33,15 +34,17 @@ export {
   deleteBranch,
   deleteTask,
   getBranchObject,
-  getTodos,
-  importExportBranch,
+  getTodos, globalStats, importExportBranch,
   incompleteTask,
   init,
   listTasks,
   mergeBranches,
-  moveTask, removeTag, searchTodos,
-  searchTodosGlobally,
-  switchBranch, tag, updateTask,
+  moveTask,
+  removeTag,
+  searchTodos,
+  searchTodosGlobally, stats, switchBranch,
+  tag,
+  updateTask,
   updateTodo,
   writeBranchObject
 };
