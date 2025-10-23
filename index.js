@@ -142,7 +142,7 @@ switch (cmd) {
 
   case '--version':
   case '-v':
-    console.log(`zap version ${data.version}`);
+    console.log(`💻 Zap Version ${data.version}`);
     break;
 
   default:
