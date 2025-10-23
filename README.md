@@ -46,7 +46,7 @@ npm install -g zap-tcm
 ### From source
 
 ```bash
-git clone https://github.com/calebephrem/zap.git
+git clone https://github.com/calebephrem/zap-tcm.git
 cd zap
 npm install
 npm link
@@ -74,7 +74,7 @@ npm link
 | export [branch] [file]     | Export tasks from a branch to a file                                            |
 | stats                      | Show statistics for the current branch (use stats -g for global stats)          |
 | -v, --version              | Show version information                                                        |
-| -h, --help                 | Show help message                                                          |
+| -h, --help                 | Show help message                                                               |
 
 ## 💡 Example Workflow
 
@@ -101,12 +101,6 @@ Zap stores its data locally in a `.zap/` folder inside your project.
 
 ## 🌟 _(coming soon)_
 
-- [x] `zap import` / `zap export` — integrate with JSON, CSV, or Markdown
-- [x] `zap move` — move todos between branches
-- [x] `zap merge` — merge two branches (todo lists)
-- [x] `zap tag` — tag todo milestones
-- [x] `zap search` — quickly find todos across branches
-- [x] `zap stats` — show productivity rate & completed tasks count
 - [ ] `zap undo` — revert last action
 - [ ] `zap ui` — interactive TUI dashboard for managing tasks visually
 - [ ] `zap config` — global and local configuration management
@@ -114,7 +108,8 @@ Zap stores its data locally in a `.zap/` folder inside your project.
 ## 🧑‍💻 Contributing
 
 Contributions are welcome!  
-Fork the repo, make your changes, and submit a pull request. Make sure to read [CONTRIBUTING](./CONTRIBUTING.md) before you start.
+Fork the repo, make your changes, and submit a pull request.  
+Make sure to read [CONTRIBUTING](./CONTRIBUTING.md) before you start.
 
 ## 📄 License
 
