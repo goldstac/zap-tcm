@@ -30,29 +30,54 @@ const cmd = process.argv.slice(2)[0].startsWith('--')
   : process.argv.slice(2)[0];
 
 const helpText = `
-Usage: zap [command]
+                                  ███████╗ █████╗ ██████╗
+                                  ╚══███╔╝██╔══██╗██╔══██╗
+                                    ███╔╝ ███████║██████╔╝
+                                   ███╔╝  ██╔══██║██╔═══╝ 
+                                  ███████╗██║  ██║██║     
+                                  ╚══════╝╚═╝  ╚═╝╚═╝     
 
-Commands:
-  init                          Initialize a new zap repository
-  branch [name]                 Create a branch (or list branches if no name is given)
-  branch -d | --delete [name]   Delete a branch
-  switch [name]                 Switch to a branch
-  add [task]                    Add a new task to the current branch
-  list                          List all tasks in the current branch
-  update [id] [task]            Update a task
-  remove [id]                   Remove a task
-  complete [id]                 Mark a task as complete
-  incomplete [id]               Mark a task as incomplete
-  search [keyword]              Search tasks in the current branch (use search -g [keyword] to search globally)
-  merge [source] [target]       Merge source branch into target branch
-  tag [id] [tag]                Add a tag to a task (replace id with -d to remove a tag)
-  move [id] [branch]            Move a task to another branch
-  import [branch] [file]        Import tasks from a file into a branch
-  export [branch] [file]        Export tasks from a branch to a file
-  stats                         Show statistics for the current branch (use stats -g for global stats)
-  -v, --version                 Show version information
-  -h, --help                    Show this help message
+                                Task Manager
+
+Usage:
+  zap <command> [options]
+
+Core Commands:
+  init                              Initialize a new zap workspace
+  branch [name]                     Create a branch (or list branches if none provided)
+  branch -d, --delete <name>        Delete a branch
+  switch <name>                     Switch to a branch
+
+Task Management:
+  add <task>                        Add a new task to the current branch
+  list                              List tasks in current branch
+  update <id> <task>                Update a task by ID
+  remove <id>                       Remove a task
+  complete <id>                     Mark as complete
+  incomplete <id>                   Mark as incomplete
+
+Search & Organization:
+  search <keyword>                  Search in current branch
+  search -g <keyword>               Search globally
+  tag <id> <tag>                    Add a tag
+  tag -d <id> <tag>                 Remove a tag
+  move <id> <branch>                Move task to another branch
+
+Import / Export:
+  import <branch> <file>            Import tasks into branch
+  export <branch> <file>            Export tasks to file
+
+Branch Intelligence:
+  merge <source> <target>           Merge branches
+  stats                             Show branch stats
+  stats -g                          Global statistics
+
+General:
+  -v, --version                     Show version
+  -h, --help                        Show this help message
 `;
+
+
 
 switch (cmd) {
   case 'init':
