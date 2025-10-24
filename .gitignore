@@ -2,3 +2,4 @@ node_modules/
 .vscode/
 .zap/
 build/
+test.js

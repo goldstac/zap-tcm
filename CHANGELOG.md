@@ -1,5 +1,11 @@
 # Change Log
 
+## `v3.0.2`
+
+### 🛠️ Fixes
+
+- Prevent duplicate ids when merging branches
+
 ## `v3.0.1`
 
 ### 🛠️ Fixes
