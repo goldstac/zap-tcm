@@ -1,10 +1,16 @@
 # Change Log
 
-## `v3.0.2`
+## `v3.0.4`
 
 ### 🛠️ Fixes
 
-- Ensure `zap --version` shows accurate info
+- Resolve version mismatch in `zap -v` output
+
+## `v3.0.3`
+
+### 🛠️ Fixes
+
+- Ensure `zap -v` shows accurate info
 
 ## `v3.0.2`
 
