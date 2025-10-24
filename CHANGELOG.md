@@ -4,6 +4,12 @@
 
 ### 🛠️ Fixes
 
+- Ensure `zap --version` shows accurate info
+
+## `v3.0.2`
+
+### 🛠️ Fixes
+
 - Prevent duplicate ids when merging branches
 
 ## `v3.0.1`
