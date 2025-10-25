@@ -1,5 +1,11 @@
 # Change Log
 
+## `v3.2.0`
+
+### 🚀 Enhancements
+
+- Add `createdBy` object to todos with `name` and/or `email`
+
 ## `v3.1.0`
 
 ### 🚀 Enhancements
