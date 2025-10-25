@@ -2,6 +2,7 @@ import path from 'path';
 import ucid from 'unique-custom-id';
 import { readdir, readFile, rmfile, writeFile } from '../utils/fs.js';
 import { padLog } from '../utils/log.js';
+import { sliceSHA } from '../utils/zap.js';
 import data from './data.js';
 
 export async function branch(name, log = true) {
@@ -23,7 +24,7 @@ export async function branch(name, log = true) {
     path.join(data.basedir, `${name}.json`),
     JSON.stringify(obj, null, 2)
   );
-  log ? console.log(`Created branch: ${name} [${id.split(5)[0]}]`) : null;
+  log ? console.log(`Created branch: ${name} [${sliceSHA(id)}]`) : null;
 }
 
 export async function getBranchObject() {
@@ -73,7 +74,7 @@ export async function deleteBranch(name) {
   const raw = await readFile(path.join(data.basedir, `${name}.json`));
   const id = JSON.parse(raw).id;
   await rmfile(path.join(data.basedir, `${name}.json`));
-  console.log(`Deleted branch ${name} [${id.split(5)[0]}]`);
+  console.log(`Deleted branch ${name} [${sliceSHA(id)}]`);
 }
 
 export async function mergeBranches(sourceBranch, targetBranch) {
@@ -108,8 +109,41 @@ export async function mergeBranches(sourceBranch, targetBranch) {
     };
   }
   targetObj.todos = targetObj.todos.concat(sourceObj.todos);
+  targetObj.todos.forEach((todo, i) => {
+    todo.id = i + 1;
+  });
+  targetObj.todos.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   await writeBranchObject(targetObj);
   console.log(`Merged branch ${sourceBranch} into ${targetBranch}.`);
+}
+
+export async function renameBranch(branchName, newBranchName) {
+  if (!branchName || !newBranchName) {
+    console.error('Please provide both the current and new branch names.');
+    process.exit(1);
+  }
+  const branches = await readdir(data.basedir);
+  const exists = branches.includes(`${branchName}.json`);
+  if (!exists) {
+    console.error(`Branch ${branchName} does not exist.`);
+    process.exit(1);
+  }
+  const newExists = branches.includes(`${newBranchName}.json`);
+  if (newExists) {
+    console.error(`Branch ${newBranchName} already exists.`);
+    process.exit(1);
+  }
+  const oldPath = path.join(data.basedir, `${branchName}.json`);
+  const newPath = path.join(data.basedir, `${newBranchName}.json`);
+  const content = await readFile(oldPath);
+  const branchObj = JSON.parse(content);
+  branchObj.name = newBranchName;
+  await writeFile(newPath, JSON.stringify(branchObj, null, 2));
+  await rmfile(oldPath);
+  const currentbr = await currentBranch();
+  if (currentbr === branchName) {
+    await writeFile(data.branch, newBranchName);
+  }
 }
 
 export async function importExportBranch(name, direction, filepath) {

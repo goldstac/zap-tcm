@@ -5,9 +5,11 @@ import {
   getBranchObject,
   importExportBranch,
   mergeBranches,
+  renameBranch,
   switchBranch,
   writeBranchObject,
 } from './core/branch.js';
+import { setConfig } from './core/config.js';
 import { data } from './core/data.js';
 import { searchTodos, searchTodosGlobally } from './core/search.js';
 import { globalStats, stats } from './core/stats.js';
@@ -27,22 +29,25 @@ import {
 
 export {
   addTask,
-  branch,
-  completeTask,
+  branch, completeTask,
   currentBranch,
   data,
   deleteBranch,
   deleteTask,
   getBranchObject,
-  getTodos, globalStats, importExportBranch,
+  getTodos,
+  globalStats,
+  importExportBranch,
   incompleteTask,
   init,
   listTasks,
   mergeBranches,
   moveTask,
-  removeTag,
-  searchTodos,
-  searchTodosGlobally, stats, switchBranch,
+  removeTag, renameBranch, searchTodos,
+  searchTodosGlobally,
+  setConfig,
+  stats,
+  switchBranch,
   tag,
   updateTask,
   updateTodo,

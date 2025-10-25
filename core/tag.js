@@ -5,6 +5,10 @@ export async function tag(id, tag) {
     console.error('Please provide both id and tag');
     process.exit(1);
   }
+  if (tag.length > 20) {
+    console.error('Tag length should not exceed 20 characters');
+    process.exit(1);
+  }
   const todos = await getTodos();
   const todo = todos.filter((t) => t.id == id)[0];
   todo.tag = tag;

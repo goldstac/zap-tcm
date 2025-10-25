@@ -1,10 +1,15 @@
 import path from 'path';
+import { getGlobalConfig, getLocalConfig } from '../core/config.js';
+
+const globalConfig = await getGlobalConfig();
+const localConfig = await getLocalConfig();
 
 export const data = {
   basedir: path.join('.', '.zap'),
   branch: path.join('.', '.zap', 'branch'),
-  defaultBranch: 'main',
-  version: '3.0.1',
+  version: '3.3.1',
+  globalConfig,
+  localConfig,
 };
 
 export default data;

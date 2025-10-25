@@ -13,8 +13,8 @@ import data from './data.js';
 export async function init() {
   if (!fs.existsSync(data.basedir)) {
     await createFolder(data.basedir);
-    await branch(data.defaultBranch, false);
-    await writeFile(data.branch, data.defaultBranch);
+    await branch(data.globalConfig['init.defaultBranch'], false);
+    await writeFile(data.branch, data.globalConfig['init.defaultBranch']);
   } else {
     console.error('.zap repository already exists.');
     process.exit(1);
@@ -62,7 +62,17 @@ export async function addTask(task) {
   const todos = branchObj.todos;
   const id = todos.length ? todos[todos.length - 1].id + 1 : 1;
   const createdAt = new Date().toISOString();
-  todos.push({ id, task, completed: false, createdAt });
+  const createdBy = {
+    name: data.globalConfig['user.name'] || undefined,
+    email: data.globalConfig['user.email'] || undefined,
+  };
+  todos.push({
+    id,
+    task,
+    completed: false,
+    createdAt,
+    createdBy: createdBy.name || createdBy.email ? createdBy : undefined,
+  });
   branchObj.todos = todos;
   await writeBranchObject(branchObj);
   console.log(`Added todo: ${task}`);

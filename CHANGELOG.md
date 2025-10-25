@@ -1,5 +1,72 @@
 # Change Log
 
+## `v3.3.1`
+
+### 🛠️ Fixes
+
+- Fix error on command enter, forgot to export `renameBranch` from `impexp.js`
+
+## `v3.3.0`
+
+### 🚀 Enhancements
+
+- Sort todos by `createdAt` on branch merge
+- Support branch renaming
+
+## `v3.2.0`
+
+### 🚀 Enhancements
+
+- Add `createdBy` object to todos with `name` and/or `email`
+
+### ❤️ Contributors
+
+- [@goldstac](https://github.com/goldstac)
+- [@calebephrem](https://github.com/calebephrem)
+
+### 🛠️ Fixes
+
+- Make zap version output use static variable
+
+## `v3.1.0`
+
+### 🚀 Enhancements
+
+- Add zap config support for `--global` and `--local` settings
+
+### 🛠️ Fixes
+
+- Truncate SHA log to 7 characters
+
+## `v3.0.4`
+
+### 🛠️ Fixes
+
+- Resolve version mismatch in `zap -v` output
+
+## `v3.0.3`
+
+### 🛠️ Fixes
+
+- Ensure `zap -v` shows accurate info
+
+### ❤️ Contributors
+
+- [@goldstac](https://github.com/goldstac)
+- [@calebephrem](https://github.com/calebephrem)
+
+## `v3.0.2`
+
+### 🛠️ Fixes
+
+- Prevent duplicate ids when merging branches
+
+### ❤️ Contributors
+
+- [@calebephrem](https://github.com/calebephrem)
+- [@goldstac](https://github.com/goldstac)
+- [@mesygir](https://github.com/mesygir)
+
 ## `v3.0.1`
 
 ### 🛠️ Fixes
