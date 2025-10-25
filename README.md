@@ -1,4 +1,16 @@
-# ⚡ Zap TCM — The Git-Style CLI Todo Manager
+<br />
+<div align="center">
+
+  <img src="https://github.com/calebephrem/zap-tcm/blob/main/assets/icon.png?raw=true" alt="Logo" width="200" height="200" />
+
+  <p align="center" style="margin-top: 12px;">
+    <strong><small>The Git-Style CLI Todo Manager</small></strong>
+  </p>
+  
+</div>
+<br />
+
+# ⚡ Zap TCM
 
 **Zap TCM** _(Zap Todo Control Manager)_ is a blazing-fast, Git-inspired CLI tool for managing todos like code.  
 Create branches for different projects, switch between them, and keep your workflow lightning clean ⚡
