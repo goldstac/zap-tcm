@@ -2,6 +2,7 @@ import path from 'path';
 import ucid from 'unique-custom-id';
 import { readdir, readFile, rmfile, writeFile } from '../utils/fs.js';
 import { padLog } from '../utils/log.js';
+import { sliceSHA } from '../utils/zap.js';
 import data from './data.js';
 
 export async function branch(name, log = true) {
@@ -23,7 +24,7 @@ export async function branch(name, log = true) {
     path.join(data.basedir, `${name}.json`),
     JSON.stringify(obj, null, 2)
   );
-  log ? console.log(`Created branch: ${name} [${id.split(5)[0]}]`) : null;
+  log ? console.log(`Created branch: ${name} [${sliceSHA(id)}]`) : null;
 }
 
 export async function getBranchObject() {
@@ -73,7 +74,7 @@ export async function deleteBranch(name) {
   const raw = await readFile(path.join(data.basedir, `${name}.json`));
   const id = JSON.parse(raw).id;
   await rmfile(path.join(data.basedir, `${name}.json`));
-  console.log(`Deleted branch ${name} [${id.split(5)[0]}]`);
+  console.log(`Deleted branch ${name} [${sliceSHA(id)}]`);
 }
 
 export async function mergeBranches(sourceBranch, targetBranch) {

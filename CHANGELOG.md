@@ -6,6 +6,10 @@
 
 - Add zap config support for `--global` and `--local` settings
 
+### 🛠️ Fixes
+
+- Truncate SHA log to 7 characters
+
 ## `v3.0.4`
 
 ### 🛠️ Fixes
