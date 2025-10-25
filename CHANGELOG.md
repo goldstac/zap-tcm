@@ -6,6 +6,15 @@
 
 - Add `createdBy` object to todos with `name` and/or `email`
 
+### ❤️ Contributors
+
+- [@goldstac](https://github.com/goldstac)
+- [@calebephrem](https://github.com/calebephrem)
+
+### 🛠️ Fixes
+
+- Make zap version output use static variable
+
 ## `v3.1.0`
 
 ### 🚀 Enhancements
