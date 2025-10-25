@@ -32,55 +32,51 @@ const cmd = process.argv.slice(2)[0].startsWith('--')
   : process.argv.slice(2)[0];
 
 const helpText = `
-                            ███████╗ █████╗ ██████╗
-                            ╚══███╔╝██╔══██╗██╔══██╗
-                              ███╔╝ ███████║██████╔╝
-                              ███╔╝  ██╔══██║██╔═══╝ 
-                            ███████╗██║  ██║██║     
-                            ╚══════╝╚═╝  ╚═╝╚═╝     
+                                  ███████╗ █████╗ ██████╗
+                                  ╚══███╔╝██╔══██╗██╔══██╗
+                                    ███╔╝ ███████║██████╔╝
+                                   ███╔╝  ██╔══██║██╔═══╝ 
+                                  ███████╗██║  ██║██║     
+                                  ╚══════╝╚═╝  ╚═╝╚═╝     
 
-                                  Task Manager
+                                Task Manager
 
 Usage:
   zap <command> [options]
 
 Core Commands:
-  init                                  Initialize a new zap repository
-  branch [name]                         Create a branch (or list branches if name is not provided)
-  branch [-d | --delete] <name>         Delete a branch
-  switch <name>                         Switch to a branch
+  init                              Initialize a new zap workspace
+  branch [name]                     Create a branch (or list branches if none provided)
+  branch -d, --delete <name>        Delete a branch
+  switch <name>                     Switch to a branch
 
 Task Management:
-  add <task>                            Add a new task to the current branch
-  list                                  List tasks in current branch
-  update <id> <task>                    Update a task by ID
-  remove <id>                           Remove a task
-  complete <id>                         Mark as complete
-  incomplete <id>                       Mark as incomplete
+  add <task>                        Add a new task to the current branch
+  list                              List tasks in current branch
+  update <id> <task>                Update a task by ID
+  remove <id>                       Remove a task
+  complete <id>                     Mark as complete
+  incomplete <id>                   Mark as incomplete
 
 Search & Organization:
-  search <keyword>                      Search in current branch
-  search [-g | --global] <keyword>      Search globally
-  tag <id> <tag>                        Add a tag
-  tag [-d | --delete] <id> <tag>        Remove a tag
-  move <id> <branch>                    Move task to another branch
+  search <keyword>                  Search in current branch
+  search -g <keyword>               Search globally
+  tag <id> <tag>                    Add a tag
+  tag -d <id> <tag>                 Remove a tag
+  move <id> <branch>                Move task to another branch
 
 Import / Export:
-  import <branch> <file>                Import tasks into branch
-  export <branch> <file>                Export tasks to file
+  import <branch> <file>            Import tasks into branch
+  export <branch> <file>            Export tasks to file
 
 Branch Intelligence:
-  merge <source> <target>               Merge branches
-  stats                                 Show branch stats
-  stats [-g | --global]                 Global statistics
-
-Configuration:
-  config [-g | --global] <key> <value>  Set global configuration
-  config [-l | --local] <key> <value>   Set local configuration
+  merge <source> <target>           Merge branches
+  stats                             Show branch stats
+  stats -g                          Global statistics
 
 General:
-  [-v | --version]                      Show version
-  [-h | --help]                         Show this help message
+  -v, --version                     Show version
+  -h, --help                        Show this help message
 `;
 
 switch (cmd) {
