@@ -1,5 +1,11 @@
 # Change Log
 
+## `v3.3.0`
+
+### 🚀 Enhancements
+
+- Sort todos by `createdAt` on branch merge
+
 ## `v3.2.0`
 
 ### 🚀 Enhancements

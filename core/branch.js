@@ -112,6 +112,7 @@ export async function mergeBranches(sourceBranch, targetBranch) {
   targetObj.todos.forEach((todo, i) => {
     todo.id = i + 1;
   });
+  targetObj.todos.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
   await writeBranchObject(targetObj);
   console.log(`Merged branch ${sourceBranch} into ${targetBranch}.`);
 }

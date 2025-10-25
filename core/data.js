@@ -7,7 +7,7 @@ const localConfig = await getLocalConfig();
 export const data = {
   basedir: path.join('.', '.zap'),
   branch: path.join('.', '.zap', 'branch'),
-  version: '3.2.0',
+  version: '3.3.0',
   globalConfig,
   localConfig,
 };

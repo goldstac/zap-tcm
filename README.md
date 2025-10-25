@@ -17,7 +17,7 @@ Create branches for different projects, switch between them, and keep your workf
 
 ## 🚀 Features
 
-- 🧠 **Git-like workflow** — Use familiar commands like `zap add`, `zap branch`, and `zap switch`
+- 🧠 **Git-like workflow** — Use familiar commands like `zap add`, `zap branch`, `zap switch` etc.
 - 🗂️ **Branch-based todo lists** — Each branch acts as a separate todo list
 - 💾 **Persistent storage** — Todos are locally stored across sessions in `.zap` repository
 - 🔥 **Minimal & intuitive** — No setup needed, just start zapping tasks
@@ -104,18 +104,10 @@ zap add "Learn Rust"
 
 zap switch main
 zap list
+zap complete 1
 ```
 
 Each branch has its own independent todos — just like code branches in Git.
-
-## 🧰 Configuration
-
-Zap stores its data locally in a `.zap/` folder inside your project.
-
-## 🌟 _(coming soon)_
-
-- [ ] `zap undo` — revert last action
-- [ ] `zap ui` — interactive TUI dashboard for managing tasks visually
 
 ## 🧑‍💻 Contributing
 
