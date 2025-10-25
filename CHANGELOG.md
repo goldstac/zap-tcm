@@ -1,5 +1,11 @@
 # Change Log
 
+## `v3.1.0`
+
+### 🚀 Enhancements
+
+- Add zap config support for `--global` and `--local` settings
+
 ## `v3.0.4`
 
 ### 🛠️ Fixes
@@ -12,11 +18,22 @@
 
 - Ensure `zap -v` shows accurate info
 
+### ❤️ Contributors
+
+- [@goldstac](https://github.com/goldstac)
+- [@calebephrem](https://github.com/calebephrem)
+
 ## `v3.0.2`
 
 ### 🛠️ Fixes
 
 - Prevent duplicate ids when merging branches
+
+### ❤️ Contributors
+
+- [@calebephrem](https://github.com/calebephrem)
+- [@goldstac](https://github.com/goldstac)
+- [@mesygir](https://github.com/mesygir)
 
 ## `v3.0.1`
 

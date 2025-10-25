@@ -17,6 +17,7 @@ import {
   removeTag,
   searchTodos,
   searchTodosGlobally,
+  setConfig,
   stats,
   switchBranch,
   tag,
@@ -30,14 +31,14 @@ const cmd = process.argv.slice(2)[0].startsWith('--')
   : process.argv.slice(2)[0];
 
 const helpText = `
-                                  ███████╗ █████╗ ██████╗
-                                  ╚══███╔╝██╔══██╗██╔══██╗
-                                    ███╔╝ ███████║██████╔╝
-                                   ███╔╝  ██╔══██║██╔═══╝ 
-                                  ███████╗██║  ██║██║     
-                                  ╚══════╝╚═╝  ╚═╝╚═╝     
+                            ███████╗ █████╗ ██████╗
+                            ╚══███╔╝██╔══██╗██╔══██╗
+                              ███╔╝ ███████║██████╔╝
+                              ███╔╝  ██╔══██║██╔═══╝ 
+                            ███████╗██║  ██║██║     
+                            ╚══════╝╚═╝  ╚═╝╚═╝     
 
-                                Task Manager
+                                  Task Manager
 
 Usage:
   zap <command> [options]
@@ -72,12 +73,14 @@ Branch Intelligence:
   stats                             Show branch stats
   stats -g                          Global statistics
 
+Configuration:
+  config --global, -g <key> <value> Set global configuration
+  config --local, -l <key> <value>  Set local configuration
+
 General:
   -v, --version                     Show version
   -h, --help                        Show this help message
 `;
-
-
 
 switch (cmd) {
   case 'init':
@@ -157,6 +160,14 @@ switch (cmd) {
       await globalStats();
     } else {
       await stats();
+    }
+    break;
+
+  case 'config':
+    if (args[1] === '--global' || args[1] === '-g') {
+      await setConfig('global', args[2], args[3]);
+    } else if (args[1] === '--local' || args[1] === '-l') {
+      await setConfig('local', args[2], args[3]);
     }
     break;
 

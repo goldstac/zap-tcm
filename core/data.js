@@ -1,28 +1,17 @@
-import fs from 'fs';
 import path from 'path';
-import { readFile } from '../utils/fs.js';
+import { getGlobalConfig, getLocalConfig } from '../core/config.js';
+import { readPackageVersion } from '../utils/zap.js';
 
-async function readPackageVersion() {
-  try {
-    const packageJsonPath = path.join('.', 'package.json');
-    if (fs.existsSync(packageJsonPath)) {
-      const content = await readFile(packageJsonPath);
-      const parsed = JSON.parse(content);
-      return parsed.version;
-    }
-    return null;
-  } catch (err) {
-    return null;
-  }
-}
-
-const version = await readPackageVersion() || '0.0.0';
+const version = (await readPackageVersion()) || '0.0.0';
+const globalConfig = await getGlobalConfig();
+const localConfig = await getLocalConfig();
 
 export const data = {
   basedir: path.join('.', '.zap'),
   branch: path.join('.', '.zap', 'branch'),
-  defaultBranch: 'main',
   version,
+  globalConfig,
+  localConfig,
 };
 
 export default data;

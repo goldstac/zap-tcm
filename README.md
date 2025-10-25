@@ -54,27 +54,28 @@ npm link
 
 ## 📚 Command Reference
 
-| Command                    | Description                                                                     |
-| -------------------------- | ------------------------------------------------------------------------------- |
-| init                       | Initialize a new zap repository                                                 |
-| branch [name]              | Create a branch (or list branches if no name is given)                          |
-| branch -d, --delete [name] | Delete a branch                                                                 |
-| switch [name]              | Switch to a branch                                                              |
-| add [task]                 | Add a new task to the current branch                                            |
-| list                       | List all tasks in the current branch                                            |
-| update [id] [task]         | Update a task                                                                   |
-| remove [id]                | Remove a task                                                                   |
-| complete [id]              | Mark a task as complete                                                         |
-| incomplete [id]            | Mark a task as incomplete                                                       |
-| search [keyword]           | Search tasks in the current branch (use search -g [keyword] to search globally) |
-| merge [source] [target]    | Merge source branch into target branch                                          |
-| tag [id] [tag]             | Add a tag to a task (replace id with -d to remove a tag)                        |
-| move [id] [branch]         | Move a task to another branch                                                   |
-| import [branch] [file]     | Import tasks from a file into a branch                                          |
-| export [branch] [file]     | Export tasks from a branch to a file                                            |
-| stats                      | Show statistics for the current branch (use stats -g for global stats)          |
-| -v, --version              | Show version information                                                        |
-| -h, --help                 | Show help message                                                               |
+| Command                      | Description                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| init                         | Initialize a new zap repository                                                 |
+| branch [name]                | Create a branch (or list branches if no name is given)                          |
+| branch -d, --delete [name]   | Delete a branch                                                                 |
+| switch [name]                | Switch to a branch                                                              |
+| add [task]                   | Add a new task to the current branch                                            |
+| list                         | List all tasks in the current branch                                            |
+| update [id] [task]           | Update a task                                                                   |
+| remove [id]                  | Remove a task                                                                   |
+| complete [id]                | Mark a task as complete                                                         |
+| incomplete [id]              | Mark a task as incomplete                                                       |
+| search [keyword]             | Search tasks in the current branch (use search -g [keyword] to search globally) |
+| merge [source] [target]      | Merge source branch into target branch                                          |
+| tag [id] [tag]               | Add a tag to a task (replace id with -d to remove a tag)                        |
+| move [id] [branch]           | Move a task to another branch                                                   |
+| import [branch] [file]       | Import tasks from a file into a branch                                          |
+| export [branch] [file]       | Export tasks from a branch to a file                                            |
+| stats                        | Show statistics for the current branch (use stats -g for global stats)          |
+| config [scope] [key] [value] | Configuration for `--global` and `--local` settings                             |
+| -v, --version                | Show version information                                                        |
+| -h, --help                   | Show help message                                                               |
 
 ## 💡 Example Workflow
 
@@ -103,7 +104,6 @@ Zap stores its data locally in a `.zap/` folder inside your project.
 
 - [ ] `zap undo` — revert last action
 - [ ] `zap ui` — interactive TUI dashboard for managing tasks visually
-- [ ] `zap config` — global and local configuration management
 
 ## 🧑‍💻 Contributing
 
