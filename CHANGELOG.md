@@ -1,5 +1,11 @@
 # Change Log
 
+## `v3.3.1`
+
+### 🛠️ Fixes
+
+- Fix error on command enter, forgot to export `renameBranch` from `impexp.js`
+
 ## `v3.3.0`
 
 ### 🚀 Enhancements
