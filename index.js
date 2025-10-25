@@ -15,6 +15,7 @@ import {
   mergeBranches,
   moveTask,
   removeTag,
+  renameBranch,
   searchTodos,
   searchTodosGlobally,
   setConfig,
@@ -44,42 +45,42 @@ Usage:
   zap <command> [options]
 
 Core Commands:
-  init                              Initialize a new zap workspace
-  branch [name]                     Create a branch (or list branches if none provided)
-  branch -d, --delete <name>        Delete a branch
-  switch <name>                     Switch to a branch
+  init                                  Initialize a new zap repository
+  branch [name]                         Create a branch (or list branches if name is not provided)
+  branch [-d | --delete] <name>         Delete a branch
+  switch <name>                         Switch to a branch
 
 Task Management:
-  add <task>                        Add a new task to the current branch
-  list                              List tasks in current branch
-  update <id> <task>                Update a task by ID
-  remove <id>                       Remove a task
-  complete <id>                     Mark as complete
-  incomplete <id>                   Mark as incomplete
+  add <task>                            Add a new task to the current branch
+  list                                  List tasks in current branch
+  update <id> <task>                    Update a task by ID
+  remove <id>                           Remove a task
+  complete <id>                         Mark as complete
+  incomplete <id>                       Mark as incomplete
 
 Search & Organization:
-  search <keyword>                  Search in current branch
-  search -g <keyword>               Search globally
-  tag <id> <tag>                    Add a tag
-  tag -d <id> <tag>                 Remove a tag
-  move <id> <branch>                Move task to another branch
+  search <keyword>                      Search in current branch
+  search [-g | --global] <keyword>      Search globally
+  tag <id> <tag>                        Add a tag
+  tag [-d | --delete] <id> <tag>        Remove a tag
+  move <id> <branch>                    Move task to another branch
 
 Import / Export:
-  import <branch> <file>            Import tasks into branch
-  export <branch> <file>            Export tasks to file
+  import <branch> <file>                Import tasks into branch
+  export <branch> <file>                Export tasks to file
 
 Branch Intelligence:
-  merge <source> <target>           Merge branches
-  stats                             Show branch stats
-  stats -g                          Global statistics
+  merge <source> <target>               Merge branches
+  stats                                 Show branch stats
+  stats [-g | --global]                 Global statistics
 
 Configuration:
-  config --global, -g <key> <value> Set global configuration
-  config --local, -l <key> <value>  Set local configuration
+  config [-g | --global] <key> <value>  Set global configuration
+  config [-l | --local] <key> <value>   Set local configuration
 
 General:
-  -v, --version                     Show version
-  -h, --help                        Show this help message
+  [-v | --version]                      Show version
+  [-h | --help]                         Show this help message
 `;
 
 switch (cmd) {
@@ -90,6 +91,8 @@ switch (cmd) {
   case 'branch':
     if (args[1] === '-d' || args[1] === '--delete') {
       await deleteBranch(args[2]);
+    } else if (args[1] === '-r' || args[1] === '--rename') {
+      await renameBranch(args[2], args[3]);
     } else {
       await branch(args[1]);
     }
@@ -140,7 +143,7 @@ switch (cmd) {
     break;
 
   case 'tag':
-    if (args[1] == '-d') {
+    if (args[1] == '-d' || args[1] == '--delete') {
       await removeTag(args[2]);
     } else {
       await tag(args[1], args[2]);

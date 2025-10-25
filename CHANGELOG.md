@@ -5,6 +5,7 @@
 ### 🚀 Enhancements
 
 - Sort todos by `createdAt` on branch merge
+- Support branch renaming
 
 ## `v3.2.0`
 

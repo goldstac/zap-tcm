@@ -71,6 +71,7 @@ npm link
 | init                         | Initialize a new zap repository                                                 |
 | branch [name]                | Create a branch (or list branches if no name is given)                          |
 | branch -d, --delete [name]   | Delete a branch                                                                 |
+| branch -r, --rename [name]   | Rename a branch                                                                 |
 | switch [name]                | Switch to a branch                                                              |
 | add [task]                   | Add a new task to the current branch                                            |
 | list                         | List all tasks in the current branch                                            |

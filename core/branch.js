@@ -117,6 +117,35 @@ export async function mergeBranches(sourceBranch, targetBranch) {
   console.log(`Merged branch ${sourceBranch} into ${targetBranch}.`);
 }
 
+export async function renameBranch(branchName, newBranchName) {
+  if (!branchName || !newBranchName) {
+    console.error('Please provide both the current and new branch names.');
+    process.exit(1);
+  }
+  const branches = await readdir(data.basedir);
+  const exists = branches.includes(`${branchName}.json`);
+  if (!exists) {
+    console.error(`Branch ${branchName} does not exist.`);
+    process.exit(1);
+  }
+  const newExists = branches.includes(`${newBranchName}.json`);
+  if (newExists) {
+    console.error(`Branch ${newBranchName} already exists.`);
+    process.exit(1);
+  }
+  const oldPath = path.join(data.basedir, `${branchName}.json`);
+  const newPath = path.join(data.basedir, `${newBranchName}.json`);
+  const content = await readFile(oldPath);
+  const branchObj = JSON.parse(content);
+  branchObj.name = newBranchName;
+  await writeFile(newPath, JSON.stringify(branchObj, null, 2));
+  await rmfile(oldPath);
+  const currentbr = await currentBranch();
+  if (currentbr === branchName) {
+    await writeFile(data.branch, newBranchName);
+  }
+}
+
 export async function importExportBranch(name, direction, filepath) {
   if (!name || !direction || !filepath) {
     console.error(
